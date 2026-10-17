@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shiftwell swap rules simulator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<h1>Swap rules simulator</h1>
+<p class="sub">Today every swap waits for a manager. Here, each request is checked against rules the customer sets. Clean swaps go through instantly; only exceptions reach a person. Change the rules and watch the queue sort itself.</p>
+
+<section class="card">
+<h2>Rules</h2>
+<div class="rules">
+<div class="rule"><label><input type="checkbox" id="rAuto" checked><span>Auto-approve clean swaps<small>Off = today’s behaviour: every swap goes to the Location Manager.</small></span></label></div>
+<div class="rule"><label><input type="checkbox" id="rTrain" checked><span>Must be trained for the role or station<small>Not trained → sent to the Location Manager.</small></span></label></div>
+<div class="rule"><label><input type="checkbox" id="rCert" checked><span>Required certificates must be valid on the shift date<small>Expired or missing → blocked, nobody can override in the swap flow. (CarePoint)</small></span></label></div>
+<div class="rule"><label><input type="checkbox" id="rHrs" checked><span>Weekly hours cap<small>Over the cap → sent to a named approver. (UrbanMart)<br>Cap: <input type="number" id="cap" value="48" min="30" max="60"> hrs</small></span></label></div>
+</div>
+</section>
+
+<section class="card">
+<h2>What happens to the sample queue</h2>
+<div class="stats" id="stats"></div>
+<div class="tw" style="margin-top:12px"><table><thead><tr><th>Swap into shift</th><th>Shift</th><th>Week hrs after</th><th>Outcome</th><th>Why</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p class="note">The sample queue is 14 invented swaps, deliberately heavy on exceptions so every outcome shows up. Real queues are mostly clean (see the estimate below).</p>
+</section>
+
+<section class="card">
+<h2>Estimate for a real account (editable assumptions)</h2>
+<div class="row2">
+<div><label for="cur">Swaps approved within 24 hrs today (%)</label><input type="number" id="cur" value="38" min="0" max="100"></div>
+<div><label for="share">Swaps that pass every rule (%)</label><input type="number" id="share" value="85" min="0" max="100"></div>
+<div><label for="vol">Swaps per month (account)</label><input type="number" id="vol" value="2900" min="0" step="100"></div>
+<div><label for="mins">Manager minutes per manual approval</label><input type="number" id="mins" value="2" min="0.5" step="0.5"></div>
+</div>
+<div class="stats" id="est"></div>
+<p class="note">Defaults are FreshBowl’s: 38% within 24 hrs and 2,900 swaps a month come from the data pack. The 85% pass rate and 2 minutes per approval are my assumptions, to be replaced by real data in the pilot.</p>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
